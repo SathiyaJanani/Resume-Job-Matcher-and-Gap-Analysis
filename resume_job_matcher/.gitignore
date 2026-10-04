@@ -1,0 +1,6 @@
+__pycache__/
+*.py[cod]
+.venv/
+resume_matcher.db
+models/*.joblib
+.streamlit/

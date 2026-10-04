@@ -1,0 +1,91 @@
+{
+  "generated_at": "2026-09-22T16:07:24.063654",
+  "match_result": {
+    "final_match_score": 49.77,
+    "text_similarity_score": 24.41,
+    "skill_overlap_score": 66.67
+  },
+  "skill_gap_analysis": {
+    "matched_skills": [
+      "algorithms",
+      "communication",
+      "data structures",
+      "git",
+      "javascript",
+      "mongodb",
+      "node.js",
+      "python",
+      "react",
+      "rest api",
+      "sql",
+      "teamwork"
+    ],
+    "missing_skills": [
+      "agile",
+      "aws",
+      "docker",
+      "machine learning",
+      "natural language processing",
+      "system design"
+    ],
+    "extra_skills": [
+      "css",
+      "html",
+      "java",
+      "mysql",
+      "object oriented programming",
+      "problem solving",
+      "time management"
+    ],
+    "readiness_percentage": 66.67,
+    "learning_suggestions": {
+      "agile": "Search for a well-reviewed course or official documentation.",
+      "aws": "AWS Cloud Practitioner Essentials (AWS Skill Builder)",
+      "docker": "Docker official 'Get Started' guide (docs.docker.com)",
+      "machine learning": "Andrew Ng's Machine Learning course (Coursera)",
+      "natural language processing": "Hugging Face NLP course (huggingface.co/course)",
+      "system design": "Search for a well-reviewed course or official documentation."
+    }
+  },
+  "resume_skills_detected": [
+    "algorithms",
+    "communication",
+    "css",
+    "data structures",
+    "git",
+    "html",
+    "java",
+    "javascript",
+    "mongodb",
+    "mysql",
+    "node.js",
+    "object oriented programming",
+    "problem solving",
+    "python",
+    "react",
+    "rest api",
+    "sql",
+    "teamwork",
+    "time management"
+  ],
+  "job_skills_detected": [
+    "agile",
+    "algorithms",
+    "aws",
+    "communication",
+    "data structures",
+    "docker",
+    "git",
+    "javascript",
+    "machine learning",
+    "mongodb",
+    "natural language processing",
+    "node.js",
+    "python",
+    "react",
+    "rest api",
+    "sql",
+    "system design",
+    "teamwork"
+  ]
+}

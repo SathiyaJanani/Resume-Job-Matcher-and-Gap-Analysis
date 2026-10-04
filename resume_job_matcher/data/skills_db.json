@@ -1,0 +1,42 @@
+{
+  "Programming Languages": [
+    "python", "java", "c++", "c", "c#", "javascript", "typescript", "go", "golang",
+    "rust", "ruby", "php", "swift", "kotlin", "scala", "r", "matlab", "perl", "dart"
+  ],
+  "Web Development": [
+    "html", "css", "react", "reactjs", "angular", "vue", "vuejs", "node.js", "nodejs",
+    "express.js", "expressjs", "django", "flask", "fastapi", "spring boot", "asp.net",
+    "next.js", "nextjs", "bootstrap", "tailwind css", "jquery", "rest api", "graphql",
+    "webpack", "redux"
+  ],
+  "Database": [
+    "sql", "mysql", "postgresql", "mongodb", "sqlite", "oracle", "redis", "cassandra",
+    "dynamodb", "firebase", "mariadb", "elasticsearch", "nosql"
+  ],
+  "Data Science & Machine Learning": [
+    "machine learning", "deep learning", "natural language processing", "nlp",
+    "computer vision", "data analysis", "data visualization", "pandas", "numpy",
+    "scikit-learn", "sklearn", "tensorflow", "keras", "pytorch", "opencv", "matplotlib",
+    "seaborn", "power bi", "tableau", "statistics", "data mining", "feature engineering",
+    "regression", "classification", "clustering", "neural networks", "spacy", "nltk",
+    "transformers", "llm", "generative ai", "reinforcement learning"
+  ],
+  "Cloud & DevOps": [
+    "aws", "azure", "gcp", "google cloud", "docker", "kubernetes", "jenkins", "ci/cd",
+    "terraform", "ansible", "linux", "git", "github", "gitlab", "bitbucket", "nginx",
+    "microservices", "serverless", "cloudformation"
+  ],
+  "Mobile Development": [
+    "android", "ios", "react native", "flutter", "xamarin", "swiftui", "jetpack compose"
+  ],
+  "Tools & Practices": [
+    "agile", "scrum", "jira", "postman", "unit testing", "test driven development", "tdd",
+    "object oriented programming", "oop", "data structures", "algorithms", "system design",
+    "design patterns", "api development", "version control"
+  ],
+  "Soft Skills": [
+    "communication", "teamwork", "leadership", "problem solving", "critical thinking",
+    "time management", "adaptability", "collaboration", "presentation", "creativity",
+    "project management", "analytical skills", "mentoring"
+  ]
+}

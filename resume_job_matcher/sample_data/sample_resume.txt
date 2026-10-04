@@ -1,0 +1,25 @@
+Sathiya Janani S
+Computer Science and Engineering Student
+
+SUMMARY
+Motivated CSE student with hands-on experience in full-stack development,
+database design, and building portfolio projects. Strong foundation in
+data structures, algorithms, and object oriented programming.
+
+TECHNICAL SKILLS
+Python, Java, JavaScript, HTML, CSS, React, Node.js, MongoDB, MySQL,
+Git, Data Structures, Object Oriented Programming, REST API
+
+PROJECTS
+- Wedding Planner Vendor Coordination Platform: Full-stack web app for
+  coordinating wedding vendors, built with React, Node.js and MongoDB,
+  including schema design and REST API integration.
+- Herbal Product Traceability System: Blockchain and AI based supply
+  chain traceability system with QR code verification.
+
+EDUCATION
+B.E. Computer Science and Engineering, National Engineering College,
+Kovilpatti. CGPA: 8.02
+
+SOFT SKILLS
+Communication, Teamwork, Problem Solving, Time Management

@@ -1,0 +1,1113 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="color-scheme" content="light">
+  <title>SkillBridge AI — Intelligent Resume–Job Matching & Talent Intelligence</title>
+  <meta name="description" content="AI-Powered Resume Matcher, Recruitment Pipeline & Talent Intelligence Dashboard featuring 12 SQLite core tables.">
+  <link rel="stylesheet" href="/static/style.css?v=20261002-light-v4">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⚡</text></svg>">
+  <style>
+    /* GUARANTEED WHITE WITH BLUE LIGHT MODE OVERRIDE */
+    :root {
+      color-scheme: light !important;
+    }
+    html, body {
+      background-color: #f8fafc !important;
+      background-image: radial-gradient(circle at 12% 8%, rgba(37, 99, 235, 0.05) 0%, transparent 45%), radial-gradient(circle at 88% 25%, rgba(2, 132, 199, 0.04) 0%, transparent 40%) !important;
+      color: #0f172a !important;
+    }
+    .sidebar {
+      background-color: #ffffff !important;
+      border-right: 1px solid #e2e8f0 !important;
+    }
+    .top-header {
+      background-color: rgba(255, 255, 255, 0.95) !important;
+      border-bottom: 1px solid #e2e8f0 !important;
+    }
+    .card, .kpi-card {
+      background-color: #ffffff !important;
+      border: 1px solid #e2e8f0 !important;
+      color: #0f172a !important;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05) !important;
+    }
+    .kpi-value {
+      color: #0f172a !important;
+    }
+    .kpi-title {
+      color: #64748b !important;
+    }
+    .nav-item {
+      color: #475569 !important;
+    }
+    .nav-item:hover {
+      background-color: #f1f5f9 !important;
+      color: #2563eb !important;
+    }
+    .nav-item.active {
+      background-color: #eff6ff !important;
+      color: #1d4ed8 !important;
+      border-color: #bfdbfe !important;
+    }
+    .nav-item.active::before {
+      background: #2563eb !important;
+    }
+    .nav-badge-total {
+      background: #eff6ff !important;
+      border: 1px solid #bfdbfe !important;
+      color: #1d4ed8 !important;
+    }
+    .brand-text h1 {
+      color: #0f172a !important;
+      background: none !important;
+      -webkit-text-fill-color: #0f172a !important;
+    }
+    .table-responsive, table.data-table {
+      background: #ffffff !important;
+    }
+    table.data-table th {
+      background-color: #f8fafc !important;
+      color: #475569 !important;
+      border-bottom: 2px solid #e2e8f0 !important;
+    }
+    table.data-table td {
+      color: #0f172a !important;
+      border-bottom: 1px solid #f1f5f9 !important;
+    }
+    table.data-table tr:hover td {
+      background-color: #f8fafc !important;
+    }
+    textarea, select, input[type="text"] {
+      background-color: #ffffff !important;
+      color: #0f172a !important;
+      border: 1px solid #cbd5e1 !important;
+    }
+    textarea:focus, select:focus, input[type="text"]:focus {
+      border-color: #2563eb !important;
+      box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.15) !important;
+    }
+    .btn-primary {
+      background: linear-gradient(135deg, #2563eb, #1d4ed8) !important;
+      color: #ffffff !important;
+      box-shadow: 0 2px 8px rgba(37, 99, 235, 0.25) !important;
+    }
+    .btn-secondary {
+      background: #ffffff !important;
+      border: 1px solid #cbd5e1 !important;
+      color: #0f172a !important;
+    }
+    .btn-secondary:hover {
+      background: #f8fafc !important;
+    }
+    .score-box {
+      background: #eff6ff !important;
+      border: 1px solid #bfdbfe !important;
+    }
+    .score-box .num {
+      color: #2563eb !important;
+    }
+    .score-box .label {
+      color: #64748b !important;
+    }
+    .kanban-column {
+      background: #f8fafc !important;
+      border: 1px solid #e2e8f0 !important;
+    }
+    .kanban-card {
+      background: #ffffff !important;
+      border: 1px solid #e2e8f0 !important;
+      color: #0f172a !important;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05) !important;
+    }
+    .kanban-card h5 {
+      color: #0f172a !important;
+    }
+    .modal-container {
+      background: #ffffff !important;
+      border: 1px solid #e2e8f0 !important;
+      color: #0f172a !important;
+    }
+    .modal-close {
+      color: #64748b !important;
+    }
+    .modal-close:hover {
+      color: #0f172a !important;
+    }
+    .badge-primary {
+      background: #eff6ff !important;
+      color: #1d4ed8 !important;
+      border: 1px solid #bfdbfe !important;
+    }
+    .badge-success {
+      background: #ecfdf5 !important;
+      color: #047857 !important;
+      border: 1px solid #a7f3d0 !important;
+    }
+    .badge-warning {
+      background: #fffbeb !important;
+      color: #b45309 !important;
+      border: 1px solid #fde68a !important;
+    }
+    .badge-info {
+      background: #f0f9ff !important;
+      color: #0284c7 !important;
+      border: 1px solid #bae6fd !important;
+    }
+    .chip-matched {
+      background: #ecfdf5 !important;
+      border: 1px solid #a7f3d0 !important;
+      color: #047857 !important;
+    }
+    .chip-missing {
+      background: #fff1f2 !important;
+      border: 1px solid #fecdd3 !important;
+      color: #be123c !important;
+    }
+    .chip-neutral {
+      background: #f1f5f9 !important;
+      border: 1px solid #e2e8f0 !important;
+      color: #475569 !important;
+    }
+  </style>
+</head>
+<body>
+  <div class="app-container">
+    <!-- =========================================================
+         SIDEBAR NAVIGATION: EXACTLY 15 NAVIGATION ITEMS
+         ========================================================= -->
+    <aside class="sidebar" id="app-sidebar">
+      <div class="sidebar-header">
+        <div class="brand-icon">⚡</div>
+        <div class="brand-text">
+          <h1>SkillBridge AI</h1>
+          <span>Talent Intelligence</span>
+        </div>
+      </div>
+
+      <!-- Active User Profile Card in Sidebar -->
+      <div id="sidebar-user-pill" style="margin:10px 14px 4px; padding:10px 12px; background:#eff6ff; border:1px solid #bfdbfe; border-radius:var(--radius-md); display:flex; align-items:center; justify-content:space-between;">
+        <!-- Injected by JS -->
+      </div>
+
+      <div class="nav-badge-total">
+        <div style="display:flex; align-items:center; gap:8px;">
+          <div class="pulse-dot"></div>
+          <span>12 Core Tables Active</span>
+        </div>
+        <strong id="badge-total-records">198 Rows</strong>
+      </div>
+
+      <nav class="nav-menu" id="sidebar-nav-menu">
+        <div class="nav-section-title">Core Intelligence</div>
+        
+        <!-- Navigation 1 -->
+        <a class="nav-item active" id="nav-item-overview" data-view="view-overview">
+          <span class="nav-icon">📊</span>
+          <span>1. Executive Overview</span>
+          <span class="nav-counter" id="cnt-overview">KPI</span>
+        </a>
+
+        <!-- Navigation 2 -->
+        <a class="nav-item" id="nav-item-matcher" data-view="view-matcher">
+          <span class="nav-icon">🎯</span>
+          <span>2. AI Match Engine</span>
+          <span class="nav-counter" id="cnt-matcher">Live</span>
+        </a>
+
+        <!-- Navigation 3 -->
+        <a class="nav-item" id="nav-item-candidates" data-view="view-candidates">
+          <span class="nav-icon">👥</span>
+          <span>3. Candidates Directory</span>
+          <span class="nav-counter" id="cnt-candidates">15</span>
+        </a>
+
+        <!-- Navigation 4 -->
+        <a class="nav-item" id="nav-item-resumes" data-view="view-resumes">
+          <span class="nav-icon">📄</span>
+          <span>4. Resumes Vault</span>
+          <span class="nav-counter" id="cnt-resumes">15</span>
+        </a>
+
+        <!-- Navigation 5 -->
+        <a class="nav-item" id="nav-item-jobs" data-view="view-jobs">
+          <span class="nav-icon">💼</span>
+          <span>5. Job Openings</span>
+          <span class="nav-counter" id="cnt-jobs">15</span>
+        </a>
+
+        <div class="nav-section-title">Talent Network</div>
+
+        <!-- Navigation 6 -->
+        <a class="nav-item" id="nav-item-skills" data-view="view-skills">
+          <span class="nav-icon">🧬</span>
+          <span>6. Skill Taxonomy</span>
+          <span class="nav-counter" id="cnt-skills">20</span>
+        </a>
+
+        <!-- Navigation 7 -->
+        <a class="nav-item" id="nav-item-companies" data-view="view-companies">
+          <span class="nav-icon">🏢</span>
+          <span>7. Partner Companies</span>
+          <span class="nav-counter" id="cnt-companies">14</span>
+        </a>
+
+        <!-- Navigation 8 -->
+        <a class="nav-item" id="nav-item-recruiters" data-view="view-recruiters">
+          <span class="nav-icon">👔</span>
+          <span>8. Recruiter Team</span>
+          <span class="nav-counter" id="cnt-recruiters">14</span>
+        </a>
+
+        <!-- Navigation 9 -->
+        <a class="nav-item" id="nav-item-pipeline" data-view="view-pipeline">
+          <span class="nav-icon">📋</span>
+          <span>9. Hiring Pipeline</span>
+          <span class="nav-counter" id="cnt-pipeline">16</span>
+        </a>
+
+        <div class="nav-section-title">Analytics & Operations</div>
+
+        <!-- Navigation 10 -->
+        <a class="nav-item" id="nav-item-analytics" data-view="view-analytics">
+          <span class="nav-icon">📈</span>
+          <span>10. Match Analytics</span>
+          <span class="nav-counter" id="cnt-analytics">15</span>
+        </a>
+
+        <!-- Navigation 11 -->
+        <a class="nav-item" id="nav-item-interviews" data-view="view-interviews">
+          <span class="nav-icon">🗓️</span>
+          <span>11. Interview Schedules</span>
+          <span class="nav-counter" id="cnt-interviews">14</span>
+        </a>
+
+        <!-- Navigation 12 -->
+        <a class="nav-item" id="nav-item-learning" data-view="view-learning">
+          <span class="nav-icon">🎓</span>
+          <span>12. Learning & Upskilling</span>
+          <span class="nav-counter" id="cnt-learning">15</span>
+        </a>
+
+        <!-- Navigation 13 -->
+        <a class="nav-item" id="nav-item-batch" data-view="view-batch">
+          <span class="nav-icon">⚡</span>
+          <span>13. Batch Ranker</span>
+          <span class="nav-counter" id="cnt-batch">Batch</span>
+        </a>
+
+        <div class="nav-section-title">Database & System</div>
+
+        <!-- Navigation 14 -->
+        <a class="nav-item" id="nav-item-database" data-view="view-database">
+          <span class="nav-icon">🗄️</span>
+          <span>14. 12-Tables Explorer</span>
+          <span class="nav-counter" id="cnt-database">12</span>
+        </a>
+
+        <!-- Navigation 15 -->
+        <a class="nav-item" id="nav-item-system" data-view="view-system">
+          <span class="nav-icon">⚙️</span>
+          <span>15. System & API Health</span>
+          <span class="nav-counter" id="cnt-system">OK</span>
+        </a>
+      </nav>
+
+      <div class="sidebar-footer">
+        <div>SQLite: <strong>12 Tables Ready</strong></div>
+        <a href="#view-system" id="sidebar-footer-link">v2.0 Active</a>
+      </div>
+    </aside>
+
+    <!-- =========================================================
+         MAIN CONTENT AREA
+         ========================================================= -->
+    <main class="main-wrapper" id="main-content-wrapper">
+      <!-- Top Sticky Navigation Bar -->
+      <header class="top-header" id="app-top-header">
+        <div class="header-search">
+          <span class="search-icon">🔍</span>
+          <input type="text" id="global-search-input" placeholder="Search candidates, skills, jobs, companies...">
+        </div>
+        <div class="header-actions">
+          <div class="theme-pill" style="display:flex; align-items:center; gap:6px; padding:6px 14px; background:#eff6ff; border:1px solid #bfdbfe; border-radius:999px; font-size:0.8rem; font-weight:600; color:#1d4ed8;">
+            <span>☀️</span>
+            <span>Light Theme</span>
+          </div>
+
+          <!-- Auth Status & Login/Logout Controls -->
+          <div id="header-auth-container" style="display:flex; align-items:center; gap:8px;">
+            <!-- Dynamically populated: Login Button or User Pill with Logout -->
+          </div>
+
+          <div class="status-pill" id="backend-health-pill">
+            <span class="pulse-dot"></span>
+            <span>API Online • 12 Tables (>=12 rows)</span>
+          </div>
+          <button class="btn btn-secondary" id="btn-header-reseed" title="Verify / Reseed All 12 Tables">
+            🔄 Reseed DB
+          </button>
+          <button class="btn btn-primary" id="btn-quick-match" title="Quick AI Resume Match">
+            ⚡ Quick Match
+          </button>
+        </div>
+      </header>
+
+      <!-- Views Body Area -->
+      <div class="content-body" id="content-body-container">
+
+        <!-- =====================================================
+             VIEW 1: EXECUTIVE OVERVIEW DASHBOARD
+             ===================================================== -->
+        <section class="view-section active" id="view-overview">
+          <div class="view-header">
+            <div>
+              <h2>📊 Executive Talent Intelligence Overview</h2>
+              <p>Real-time analytics across all 12 platform tables, candidate pipelines, and match velocity</p>
+            </div>
+            <div style="display:flex; gap:10px;">
+              <button class="btn btn-secondary" id="btn-refresh-overview">Refresh Metrics</button>
+              <button class="btn btn-accent" id="btn-overview-action" data-target="view-matcher">Launch AI Matcher</button>
+            </div>
+          </div>
+
+          <!-- KPI Metrics Row -->
+          <div class="grid-kpi" id="overview-kpi-grid">
+            <div class="kpi-card" style="--kpi-glow: var(--primary-glow);">
+              <div class="kpi-top">
+                <span class="kpi-title">Total Candidates</span>
+                <div class="kpi-icon-wrap">👥</div>
+              </div>
+              <div class="kpi-value" id="kpi-total-candidates">15</div>
+              <div class="kpi-bottom"><span>↑ 100% Verified Profiles</span></div>
+            </div>
+
+            <div class="kpi-card" style="--kpi-glow: var(--cyan-glow);">
+              <div class="kpi-top">
+                <span class="kpi-title">Active Job Requisitions</span>
+                <div class="kpi-icon-wrap">💼</div>
+              </div>
+              <div class="kpi-value" id="kpi-total-jobs">15</div>
+              <div class="kpi-bottom"><span>↑ 14 Tech Companies</span></div>
+            </div>
+
+            <div class="kpi-card" style="--kpi-glow: var(--emerald-glow);">
+              <div class="kpi-top">
+                <span class="kpi-title">Average Fit Score</span>
+                <div class="kpi-icon-wrap">🎯</div>
+              </div>
+              <div class="kpi-value" id="kpi-avg-score">91.4%</div>
+              <div class="kpi-bottom"><span>↑ High Match Accuracy</span></div>
+            </div>
+
+            <div class="kpi-card" style="--kpi-glow: var(--amber-glow);">
+              <div class="kpi-top">
+                <span class="kpi-title">Active Applications</span>
+                <div class="kpi-icon-wrap">📋</div>
+              </div>
+              <div class="kpi-value" id="kpi-total-applications">16</div>
+              <div class="kpi-bottom"><span>Across 5 Hiring Stages</span></div>
+            </div>
+
+            <div class="kpi-card" style="--kpi-glow: rgba(168,85,247,0.3);">
+              <div class="kpi-top">
+                <span class="kpi-title">Interviews Scheduled</span>
+                <div class="kpi-icon-wrap">🗓️</div>
+              </div>
+              <div class="kpi-value" id="kpi-total-interviews">14</div>
+              <div class="kpi-bottom"><span>Avg Rating: 9.0 / 10</span></div>
+            </div>
+
+            <div class="kpi-card" style="--kpi-glow: rgba(244,63,94,0.3);">
+              <div class="kpi-top">
+                <span class="kpi-title">Core DB Tables</span>
+                <div class="kpi-icon-wrap">🗄️</div>
+              </div>
+              <div class="kpi-value" id="kpi-total-tables">12</div>
+              <div class="kpi-bottom"><span style="color:var(--emerald);">✓ All >= 12 records</span></div>
+            </div>
+          </div>
+
+          <!-- Mid Section: Pipeline Stages + Quick Action -->
+          <div style="display:grid; grid-template-columns: 2fr 1fr; gap:24px; margin-bottom:28px;">
+            <div class="card">
+              <h3 style="font-size:1.1rem; margin-bottom:16px;">Pipeline Velocity & Candidate Stages</h3>
+              <div id="overview-stage-meters" style="display:flex; flex-direction:column; gap:14px;">
+                <!-- Filled via JS -->
+              </div>
+            </div>
+
+            <div class="card" style="background: linear-gradient(145deg, #eff6ff, #f0f9ff); border: 1px solid #bfdbfe;">
+              <h3 style="font-size:1.1rem; margin-bottom:12px; color:var(--text-primary);">Quick Match Hub</h3>
+              <p style="font-size:0.85rem; color:var(--text-secondary); margin-bottom:16px;">
+                Select any candidate and target requisition to calculate learned fit score, dynamic phrases, and readiness.
+              </p>
+              <button class="btn btn-primary" style="width:100%; justify-content:center;" id="btn-goto-matcher">
+                Open AI Matcher Studio
+              </button>
+              <div style="margin-top:20px; padding:12px; border-radius:var(--radius-sm); background:#f1f5f9; border:1px solid #e2e8f0; font-size:0.78rem; color:var(--text-muted);">
+                ⚡ Powered by semantic cosine embeddings + dynamic regex keyword overlap.
+              </div>
+            </div>
+          </div>
+
+          <!-- Bottom Section: Recent Matches Table -->
+          <div class="card">
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:16px;">
+              <h3 style="font-size:1.1rem;">Recent High-Confidence Matches</h3>
+              <span class="badge badge-success">Top Matches</span>
+            </div>
+            <div class="table-responsive">
+              <table class="data-table" id="overview-matches-table">
+                <thead>
+                  <tr>
+                    <th>Candidate</th>
+                    <th>Target Role</th>
+                    <th>Company</th>
+                    <th>Match Fit</th>
+                    <th>Semantic Similarity</th>
+                    <th>Status</th>
+                  </tr>
+                </thead>
+                <tbody id="overview-matches-tbody">
+                  <!-- Populated via JS -->
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </section>
+
+        <!-- =====================================================
+             VIEW 2: AI RESUME MATCHER (INTERACTIVE ENGINE)
+             ===================================================== -->
+        <section class="view-section" id="view-matcher">
+          <div class="view-header">
+            <div>
+              <h2>🎯 AI Resume & Job Description Matcher</h2>
+              <p>Evaluate semantic alignment, compute skill overlaps, discover dynamic phrases, and generate learning plans</p>
+            </div>
+            <button class="btn btn-primary" id="btn-run-match">🚀 Run AI Analysis</button>
+          </div>
+
+          <div class="matcher-container">
+            <!-- Left: Inputs -->
+            <div class="matcher-panel">
+              <div class="card">
+                <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px;">
+                  <label style="font-weight:600; font-size:0.92rem;">Candidate / Resume Source</label>
+                  <select class="matcher-select" id="matcher-candidate-select" style="max-width:240px;">
+                    <option value="">-- Load Candidate Resume --</option>
+                  </select>
+                </div>
+                <textarea id="matcher-resume-text" placeholder="Paste candidate resume text or experience highlights here..."></textarea>
+              </div>
+
+              <div class="card">
+                <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px;">
+                  <label style="font-weight:600; font-size:0.92rem;">Target Job Requisition</label>
+                  <select class="matcher-select" id="matcher-job-select" style="max-width:240px;">
+                    <option value="">-- Load Target Job Opening --</option>
+                  </select>
+                </div>
+                <textarea id="matcher-job-text" placeholder="Paste target job description and required qualifications here..."></textarea>
+              </div>
+            </div>
+
+            <!-- Right: Results -->
+            <div class="matcher-panel" id="matcher-results-panel">
+              <div class="card card-glowing" style="border-color:var(--border-highlight);">
+                <div style="display:flex; justify-content:space-between; align-items:center;">
+                  <h3 style="font-size:1.15rem;">Match Intelligence Results</h3>
+                  <span class="badge badge-primary" id="matcher-badge-status">Ready</span>
+                </div>
+
+                <div class="match-scores-grid">
+                  <div class="score-box">
+                    <div class="label">Overall Fit Score</div>
+                    <div class="num" id="res-final-score" style="color:var(--emerald);">--%</div>
+                  </div>
+                  <div class="score-box">
+                    <div class="label">Semantic Similarity</div>
+                    <div class="num" id="res-semantic-score" style="color:var(--cyan);">--%</div>
+                  </div>
+                  <div class="score-box">
+                    <div class="label">Skills Overlap</div>
+                    <div class="num" id="res-skills-score" style="color:var(--amber);">--%</div>
+                  </div>
+                </div>
+
+                <div style="margin-top:20px;">
+                  <div style="font-size:0.84rem; font-weight:600; color:var(--text-secondary); margin-bottom:6px;">
+                    Job Readiness Progress
+                  </div>
+                  <div style="background:#e2e8f0; height:10px; border-radius:999px; overflow:hidden;">
+                    <div id="res-readiness-bar" style="background:linear-gradient(90deg, var(--cyan), var(--emerald)); width:0%; height:100%; transition:width 0.6s ease;"></div>
+                  </div>
+                  <div style="font-size:0.78rem; color:var(--text-muted); margin-top:4px;" id="res-readiness-text">0% Readiness</div>
+                </div>
+
+                <div style="margin-top:22px;">
+                  <strong style="font-size:0.86rem; color:#059669;">✓ Matched Skills</strong>
+                  <div class="skill-chips" id="res-matched-chips">
+                    <span class="chip chip-neutral">None calculated yet</span>
+                  </div>
+                </div>
+
+                <div style="margin-top:18px;">
+                  <strong style="font-size:0.86rem; color:#e11d48;">✗ Missing Skills & Gaps</strong>
+                  <div class="skill-chips" id="res-missing-chips">
+                    <span class="chip chip-neutral">None calculated yet</span>
+                  </div>
+                </div>
+
+                <div style="margin-top:20px;" id="res-learning-plan-section">
+                  <strong style="font-size:0.86rem; color:var(--cyan);">🎓 Recommended Upskilling Actions</strong>
+                  <div id="res-learning-plan-list" style="margin-top:8px; display:flex; flex-direction:column; gap:8px;">
+                    <div style="font-size:0.8rem; color:var(--text-muted);">Run match analysis to generate tailored courses.</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- =====================================================
+             VIEW 3: CANDIDATES DIRECTORY
+             ===================================================== -->
+        <section class="view-section" id="view-candidates">
+          <div class="view-header">
+            <div>
+              <h2>👥 Candidates Directory (15 Profiles)</h2>
+              <p>Complete candidate profiles with experience years, education, current roles, and verified resumes</p>
+            </div>
+            <input type="text" id="candidates-filter-input" placeholder="Filter candidates..." style="padding:8px 14px; background:#ffffff; border:1px solid var(--border-subtle); border-radius:var(--radius-md); color:var(--text-primary);">
+          </div>
+          <div class="table-responsive">
+            <table class="data-table" id="table-candidates">
+              <thead>
+                <tr>
+                  <th>ID</th>
+                  <th>Full Name</th>
+                  <th>Current Title</th>
+                  <th>Location</th>
+                  <th>Experience</th>
+                  <th>Highest Degree</th>
+                  <th>Status</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody id="tbody-candidates"></tbody>
+            </table>
+          </div>
+        </section>
+
+        <!-- =====================================================
+             VIEW 4: RESUMES VAULT
+             ===================================================== -->
+        <section class="view-section" id="view-resumes">
+          <div class="view-header">
+            <div>
+              <h2>📄 Resumes Vault (15 Documents)</h2>
+              <p>Raw text, AI extracted executive summaries, seniority detection, and file metadata</p>
+            </div>
+          </div>
+          <div class="table-responsive">
+            <table class="data-table" id="table-resumes">
+              <thead>
+                <tr>
+                  <th>ID</th>
+                  <th>Candidate</th>
+                  <th>File Name</th>
+                  <th>Size</th>
+                  <th>AI Seniority</th>
+                  <th>Executive Summary</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody id="tbody-resumes"></tbody>
+            </table>
+          </div>
+        </section>
+
+        <!-- =====================================================
+             VIEW 5: JOB OPENINGS
+             ===================================================== -->
+        <section class="view-section" id="view-jobs">
+          <div class="view-header">
+            <div>
+              <h2>💼 Job Requisitions & Openings (15 Roles)</h2>
+              <p>Active requisitions, compensation ranges, hiring managers, and requirements</p>
+            </div>
+          </div>
+          <div class="table-responsive">
+            <table class="data-table" id="table-jobs">
+              <thead>
+                <tr>
+                  <th>ID</th>
+                  <th>Job Title</th>
+                  <th>Company</th>
+                  <th>Department</th>
+                  <th>Salary Range</th>
+                  <th>Experience</th>
+                  <th>Applicants</th>
+                  <th>Status</th>
+                </tr>
+              </thead>
+              <tbody id="tbody-jobs"></tbody>
+            </table>
+          </div>
+        </section>
+
+        <!-- =====================================================
+             VIEW 6: SKILL TAXONOMY
+             ===================================================== -->
+        <section class="view-section" id="view-skills">
+          <div class="view-header">
+            <div>
+              <h2>🧬 Standardized Skill Taxonomy (20 Skills)</h2>
+              <p>Curated technical competencies across AI/ML, Cloud, DevOps, Frontend, and Backend</p>
+            </div>
+          </div>
+          <div class="table-responsive">
+            <table class="data-table" id="table-skills">
+              <thead>
+                <tr>
+                  <th>ID</th>
+                  <th>Skill Name</th>
+                  <th>Domain Category</th>
+                  <th>Market Demand Score</th>
+                  <th>Popularity Level</th>
+                </tr>
+              </thead>
+              <tbody id="tbody-skills"></tbody>
+            </table>
+          </div>
+        </section>
+
+        <!-- =====================================================
+             VIEW 7: PARTNER COMPANIES
+             ===================================================== -->
+        <section class="view-section" id="view-companies">
+          <div class="view-header">
+            <div>
+              <h2>🏢 Partner Companies & Clients (14 Firms)</h2>
+              <p>Enterprise hiring partners, ratings, industry specializations, and office headquarters</p>
+            </div>
+          </div>
+          <div class="table-responsive">
+            <table class="data-table" id="table-companies">
+              <thead>
+                <tr>
+                  <th>ID</th>
+                  <th>Company Name</th>
+                  <th>Industry</th>
+                  <th>Headquarters</th>
+                  <th>Size</th>
+                  <th>Rating</th>
+                  <th>Open Requisitions</th>
+                  <th>Website</th>
+                </tr>
+              </thead>
+              <tbody id="tbody-companies"></tbody>
+            </table>
+          </div>
+        </section>
+
+        <!-- =====================================================
+             VIEW 8: RECRUITER TEAM
+             ===================================================== -->
+        <section class="view-section" id="view-recruiters">
+          <div class="view-header">
+            <div>
+              <h2>👔 Talent Acquisition Team (14 Recruiters)</h2>
+              <p>Assigned technical talent partners, active pipeline counts, and corporate roles</p>
+            </div>
+          </div>
+          <div class="table-responsive">
+            <table class="data-table" id="table-recruiters">
+              <thead>
+                <tr>
+                  <th>ID</th>
+                  <th>Recruiter Name</th>
+                  <th>Company</th>
+                  <th>Role</th>
+                  <th>Department</th>
+                  <th>Active Jobs</th>
+                  <th>Contact Email</th>
+                </tr>
+              </thead>
+              <tbody id="tbody-recruiters"></tbody>
+            </table>
+          </div>
+        </section>
+
+        <!-- =====================================================
+             VIEW 9: HIRING PIPELINE (KANBAN)
+             ===================================================== -->
+        <section class="view-section" id="view-pipeline">
+          <div class="view-header">
+            <div>
+              <h2>📋 Visual Hiring Pipeline (16 Applications)</h2>
+              <p>Track candidate progress from initial application to offer acceptance</p>
+            </div>
+          </div>
+          <div class="kanban-board" id="kanban-board-container">
+            <div class="kanban-column" id="kanban-col-applied">
+              <div class="kanban-col-header">
+                <h4>📥 Applied</h4>
+                <span class="badge badge-primary" id="badge-kanban-applied">0</span>
+              </div>
+              <div class="kanban-cards" id="cards-applied"></div>
+            </div>
+
+            <div class="kanban-column" id="kanban-col-screening">
+              <div class="kanban-col-header">
+                <h4>🔍 Screening</h4>
+                <span class="badge badge-info" id="badge-kanban-screening">0</span>
+              </div>
+              <div class="kanban-cards" id="cards-screening"></div>
+            </div>
+
+            <div class="kanban-column" id="kanban-col-tech">
+              <div class="kanban-col-header">
+                <h4>💻 Technical Interview</h4>
+                <span class="badge badge-warning" id="badge-kanban-tech">0</span>
+              </div>
+              <div class="kanban-cards" id="cards-tech"></div>
+            </div>
+
+            <div class="kanban-column" id="kanban-col-culture">
+              <div class="kanban-col-header">
+                <h4>🤝 Culture Fit</h4>
+                <span class="badge badge-primary" id="badge-kanban-culture">0</span>
+              </div>
+              <div class="kanban-cards" id="cards-culture"></div>
+            </div>
+
+            <div class="kanban-column" id="kanban-col-offer">
+              <div class="kanban-col-header">
+                <h4>🎉 Offered / Hired</h4>
+                <span class="badge badge-success" id="badge-kanban-offer">0</span>
+              </div>
+              <div class="kanban-cards" id="cards-offer"></div>
+            </div>
+          </div>
+        </section>
+
+        <!-- =====================================================
+             VIEW 10: MATCH ANALYTICS & LEADERBOARD
+             ===================================================== -->
+        <section class="view-section" id="view-analytics">
+          <div class="view-header">
+            <div>
+              <h2>📈 Match Analytics & Fit Leaderboard</h2>
+              <p>Historical evaluation scores, semantic similarity, and skill coverage distribution</p>
+            </div>
+          </div>
+          <div class="table-responsive">
+            <table class="data-table" id="table-analytics">
+              <thead>
+                <tr>
+                  <th>Rank</th>
+                  <th>Candidate</th>
+                  <th>Target Requisition</th>
+                  <th>Match Score</th>
+                  <th>Semantic Similarity</th>
+                  <th>Skill Overlap</th>
+                  <th>Readiness</th>
+                  <th>AI Summary</th>
+                </tr>
+              </thead>
+              <tbody id="tbody-analytics"></tbody>
+            </table>
+          </div>
+        </section>
+
+        <!-- =====================================================
+             VIEW 11: INTERVIEW SCHEDULES
+             ===================================================== -->
+        <section class="view-section" id="view-interviews">
+          <div class="view-header">
+            <div>
+              <h2>🗓️ Interview Schedules & Scorecards (14 Sessions)</h2>
+              <p>Upcoming evaluations, round agendas, interviewer notes, and candidate ratings</p>
+            </div>
+          </div>
+          <div class="table-responsive">
+            <table class="data-table" id="table-interviews">
+              <thead>
+                <tr>
+                  <th>ID</th>
+                  <th>Candidate</th>
+                  <th>Target Role</th>
+                  <th>Round Name</th>
+                  <th>Duration</th>
+                  <th>Rating</th>
+                  <th>Status</th>
+                  <th>Meeting Link</th>
+                </tr>
+              </thead>
+              <tbody id="tbody-interviews"></tbody>
+            </table>
+          </div>
+        </section>
+
+        <!-- =====================================================
+             VIEW 12: LEARNING & UPSKILLING
+             ===================================================== -->
+        <section class="view-section" id="view-learning">
+          <div class="view-header">
+            <div>
+              <h2>🎓 Upskilling & Learning Recommendations (15 Paths)</h2>
+              <p>Curated learning pathways from Coursera, DeepLearning.AI, Udemy, and edX</p>
+            </div>
+          </div>
+          <div class="table-responsive">
+            <table class="data-table" id="table-learning">
+              <thead>
+                <tr>
+                  <th>ID</th>
+                  <th>Target Candidate</th>
+                  <th>Skill Gap Addressed</th>
+                  <th>Course Title</th>
+                  <th>Platform</th>
+                  <th>Hours</th>
+                  <th>Priority</th>
+                  <th>Status</th>
+                  <th>Link</th>
+                </tr>
+              </thead>
+              <tbody id="tbody-learning"></tbody>
+            </table>
+          </div>
+        </section>
+
+        <!-- =====================================================
+             VIEW 13: BATCH CANDIDATE RANKING
+             ===================================================== -->
+        <section class="view-section" id="view-batch">
+          <div class="view-header">
+            <div>
+              <h2>⚡ Batch Candidate Ranking Engine</h2>
+              <p>Rank multiple candidates simultaneously against a target job requisition</p>
+            </div>
+            <button class="btn btn-primary" id="btn-run-batch-rank">Rank All 15 Candidates</button>
+          </div>
+          <div class="card" style="margin-bottom:20px;">
+            <label style="font-weight:600; font-size:0.9rem; margin-bottom:8px; display:block;">Target Job Requisition</label>
+            <select class="matcher-select" id="batch-job-select" style="margin-bottom:12px;"></select>
+            <textarea id="batch-job-description" style="width:100%; height:110px; background:#ffffff; border:1px solid var(--border-subtle); border-radius:var(--radius-md); padding:12px; color:var(--text-primary); font-size:0.86rem;"></textarea>
+          </div>
+          <div class="table-responsive">
+            <table class="data-table" id="table-batch-results">
+              <thead>
+                <tr>
+                  <th>Rank</th>
+                  <th>Candidate</th>
+                  <th>Current Title</th>
+                  <th>Learned Fit</th>
+                  <th>Semantic Similarity</th>
+                  <th>Overlap</th>
+                  <th>Top Matched Skills</th>
+                </tr>
+              </thead>
+              <tbody id="tbody-batch-results">
+                <tr><td colspan="7" style="text-align:center; padding:30px; color:var(--text-muted);">Click "Rank All 15 Candidates" to compute leaderboard.</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </section>
+
+        <!-- =====================================================
+             VIEW 14: DATABASE 12-TABLES EXPLORER (DEDICATED)
+             ===================================================== -->
+        <section class="view-section" id="view-database">
+          <div class="view-header">
+            <div>
+              <h2>🗄️ Database 12-Tables Live Inspector</h2>
+              <p>Direct live browser for all 12 backend SQLite tables (audited count >= 12 records each)</p>
+            </div>
+            <button class="btn btn-secondary" id="btn-audit-db">Run Audit Test</button>
+          </div>
+
+          <!-- Table selector pill tabs -->
+          <div id="db-tables-pills" style="display:flex; flex-wrap:wrap; gap:8px; margin-bottom:20px;">
+            <!-- Rendered by JS -->
+          </div>
+
+          <!-- Active Table Details -->
+          <div class="card">
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:16px;">
+              <div>
+                <h3 id="db-current-table-title" style="font-size:1.2rem; font-family:var(--font-mono); color:var(--cyan);">table_name</h3>
+                <span id="db-current-table-meta" style="font-size:0.82rem; color:var(--text-muted);">15 records • Required >= 12</span>
+              </div>
+              <input type="text" id="db-table-search" placeholder="Search rows..." style="padding:8px 14px; background:#ffffff; border:1px solid var(--border-subtle); border-radius:var(--radius-md); color:var(--text-primary); font-size:0.84rem;">
+            </div>
+            <div class="table-responsive">
+              <table class="data-table" id="db-table-grid">
+                <thead id="db-grid-thead"></thead>
+                <tbody id="db-grid-tbody"></tbody>
+              </table>
+            </div>
+          </div>
+        </section>
+
+        <!-- =====================================================
+             VIEW 15: SYSTEM & API HEALTH
+             ===================================================== -->
+        <section class="view-section" id="view-system">
+          <div class="view-header">
+            <div>
+              <h2>⚙️ System & Backend API Health Monitor</h2>
+              <p>Real-time status check of all 12 tables, database integrity, latency, and endpoints</p>
+            </div>
+            <button class="btn btn-accent" id="btn-ping-health">Ping Health Endpoint</button>
+          </div>
+
+          <div style="display:grid; grid-template-columns: 1fr 1fr; gap:24px;">
+            <div class="card">
+              <h3 style="font-size:1.1rem; margin-bottom:16px;">12-Tables Verification Matrix</h3>
+              <div id="system-tables-matrix" style="display:flex; flex-direction:column; gap:10px;">
+                <!-- Populated via JS -->
+              </div>
+            </div>
+
+            <div class="card">
+              <h3 style="font-size:1.1rem; margin-bottom:16px;">Server Diagnostics</h3>
+              <div style="display:flex; flex-direction:column; gap:14px; font-size:0.88rem;">
+                <div style="display:flex; justify-content:space-between; padding-bottom:8px; border-bottom:1px solid var(--border-subtle);">
+                  <span style="color:var(--text-muted);">Backend Server</span>
+                  <strong style="color:var(--emerald);">FastAPI + Uvicorn (Active)</strong>
+                </div>
+                <div style="display:flex; justify-content:space-between; padding-bottom:8px; border-bottom:1px solid var(--border-subtle);">
+                  <span style="color:var(--text-muted);">Persistence Layer</span>
+                  <strong style="color:var(--cyan);">SQLite 3 (recruitment_hub.db)</strong>
+                </div>
+                <div style="display:flex; justify-content:space-between; padding-bottom:8px; border-bottom:1px solid var(--border-subtle);">
+                  <span style="color:var(--text-muted);">Total Audited Tables</span>
+                  <strong style="color:var(--text-primary);">12 / 12 Verified</strong>
+                </div>
+                <div style="display:flex; justify-content:space-between; padding-bottom:8px; border-bottom:1px solid var(--border-subtle);">
+                  <span style="color:var(--text-muted);">Minimum Rows Per Table</span>
+                  <strong style="color:var(--emerald);">PASSED (All >= 12)</strong>
+                </div>
+                <div style="display:flex; justify-content:space-between; padding-bottom:8px; border-bottom:1px solid var(--border-subtle);">
+                  <span style="color:var(--text-muted);">AI Matching Model</span>
+                  <strong style="color:var(--primary);">MiniLM-L6 Cosine + NLP Overlap</strong>
+                </div>
+                <div style="display:flex; justify-content:space-between; padding-bottom:8px; border-bottom:1px solid var(--border-subtle);">
+                  <span style="color:var(--text-muted);">Response Latency</span>
+                  <strong id="system-latency-val" style="color:var(--emerald);">12 ms</strong>
+                </div>
+              </div>
+
+              <div style="margin-top:24px; display:flex; gap:12px;">
+                <button class="btn btn-secondary" id="btn-export-json" style="flex:1;">Export Database JSON</button>
+                <button class="btn btn-primary" id="btn-system-reseed" style="flex:1;">Force Re-seed DB</button>
+              </div>
+            </div>
+          </div>
+        </section>
+
+      </div>
+    </main>
+  </div>
+
+  <!-- Profile / Resume Detail Modal -->
+  <div class="modal-overlay" id="generic-modal">
+    <div class="modal-container">
+      <div class="modal-header">
+        <h3 id="modal-title" style="font-size:1.15rem;">Item Details</h3>
+        <button class="modal-close" id="modal-close-btn">&times;</button>
+      </div>
+      <div id="modal-body" style="font-size:0.9rem; line-height:1.6; color:var(--text-secondary);"></div>
+    </div>
+  </div>
+
+  <!-- =========================================================
+       AUTHENTICATION MODAL (ADMIN & CANDIDATE LOGIN)
+       ========================================================= -->
+  <div class="modal-overlay" id="auth-modal">
+    <div class="modal-container" style="max-width:460px; border-radius:var(--radius-xl); box-shadow:0 25px 50px -12px rgba(37,99,235,0.25);">
+      <div class="modal-header">
+        <div style="display:flex; align-items:center; gap:10px;">
+          <div style="width:38px; height:38px; border-radius:10px; background:linear-gradient(135deg, #2563eb, #0284c7); display:flex; align-items:center; justify-content:center; color:#fff; font-size:18px;">🔐</div>
+          <div>
+            <h3 id="auth-modal-title" style="font-size:1.15rem; margin:0; color:#0f172a;">Platform Sign In</h3>
+            <span style="font-size:0.75rem; color:#64748b;">SkillBridge AI • Role Authentication</span>
+          </div>
+        </div>
+        <button class="modal-close" id="auth-modal-close-btn">&times;</button>
+      </div>
+
+      <!-- Quick 1-Click Role Logins for Fast Academic Demo -->
+      <div style="margin-bottom:18px; padding:14px; background:#eff6ff; border:1px solid #bfdbfe; border-radius:var(--radius-md);">
+        <div style="font-size:0.78rem; font-weight:700; color:#1e40af; margin-bottom:10px; text-transform:uppercase; letter-spacing:0.06em; display:flex; align-items:center; justify-content:space-between;">
+          <span>⚡ One-Click Demo Logins</span>
+          <span style="font-size:0.7rem; font-weight:normal; color:#2563eb;">Instant Access</span>
+        </div>
+        <div style="display:grid; grid-template-columns: 1fr 1fr; gap:10px;">
+          <button type="button" class="btn" id="btn-quick-admin" style="background:#2563eb; color:#ffffff; font-size:0.82rem; padding:10px 12px; justify-content:center; font-weight:600; box-shadow:0 2px 6px rgba(37,99,235,0.3);">
+            🛡️ Admin Login
+          </button>
+          <button type="button" class="btn" id="btn-quick-candidate" style="background:#059669; color:#ffffff; font-size:0.82rem; padding:10px 12px; justify-content:center; font-weight:600; box-shadow:0 2px 6px rgba(5,150,105,0.3);">
+            🎓 Candidate Login
+          </button>
+        </div>
+        <div style="margin-top:8px; font-size:0.72rem; color:#64748b; text-align:center;">
+          Switch between Administrator tools & Candidate portal in 1 click.
+        </div>
+      </div>
+
+      <!-- Divider -->
+      <div style="display:flex; align-items:center; gap:12px; margin-bottom:16px;">
+        <hr style="flex:1; border:0; border-top:1px solid #e2e8f0;">
+        <span style="font-size:0.72rem; color:#94a3b8; font-weight:700; letter-spacing:0.06em;">OR SIGN IN WITH PASSWORD</span>
+        <hr style="flex:1; border:0; border-top:1px solid #e2e8f0;">
+      </div>
+
+      <!-- Credentials Form -->
+      <form id="auth-login-form">
+        <div id="auth-error-alert" style="display:none; padding:10px 14px; background:#fff1f2; border:1px solid #fecdd3; border-radius:var(--radius-sm); color:#be123c; font-size:0.82rem; margin-bottom:14px;"></div>
+
+        <div style="margin-bottom:12px;">
+          <label style="display:block; font-size:0.82rem; font-weight:600; color:#334155; margin-bottom:6px;">Role Selection</label>
+          <div style="display:grid; grid-template-columns: 1fr 1fr; gap:10px;">
+            <button type="button" class="btn role-tab-btn active" id="tab-btn-admin" data-role="ADMIN" style="border:2px solid #2563eb; background:#eff6ff; color:#1d4ed8; justify-content:center; font-size:0.82rem; font-weight:700;">
+              🛡️ Admin
+            </button>
+            <button type="button" class="btn role-tab-btn" id="tab-btn-candidate" data-role="CANDIDATE" style="border:1px solid #cbd5e1; background:#ffffff; color:#475569; justify-content:center; font-size:0.82rem; font-weight:600;">
+              🎓 Candidate
+            </button>
+          </div>
+        </div>
+
+        <div style="margin-bottom:12px;">
+          <label style="display:block; font-size:0.82rem; font-weight:600; color:#334155; margin-bottom:5px;">Email Address</label>
+          <input type="email" id="auth-email-input" required value="admin@skillbridge.ai" style="width:100%; padding:10px 14px; border:1px solid #cbd5e1; border-radius:var(--radius-md); font-size:0.88rem; background:#ffffff; color:#0f172a;">
+        </div>
+
+        <div style="margin-bottom:16px;">
+          <label style="display:block; font-size:0.82rem; font-weight:600; color:#334155; margin-bottom:5px;">Password</label>
+          <input type="password" id="auth-password-input" required value="admin123" style="width:100%; padding:10px 14px; border:1px solid #cbd5e1; border-radius:var(--radius-md); font-size:0.88rem; background:#ffffff; color:#0f172a;">
+        </div>
+
+        <button type="submit" class="btn btn-primary" id="btn-submit-login" style="width:100%; justify-content:center; padding:11px; font-size:0.92rem;">
+          Sign In
+        </button>
+
+        <div style="margin-top:14px; padding:10px 12px; background:#f8fafc; border:1px solid #e2e8f0; border-radius:var(--radius-sm); font-size:0.75rem; color:#64748b; line-height:1.6;">
+          <div>🔑 <strong>Admin:</strong> <code>admin@skillbridge.ai</code> / <code>admin123</code></div>
+          <div>🎓 <strong>Candidate:</strong> <code>candidate@skillbridge.ai</code> / <code>candidate123</code></div>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Toast Notification Container -->
+  <div id="toast-container" style="position:fixed; bottom:24px; right:24px; z-index:9999; display:flex; flex-direction:column; gap:8px; pointer-events:none;"></div>
+
+  <script src="/static/app.js"></script>
+</body>
+</html>

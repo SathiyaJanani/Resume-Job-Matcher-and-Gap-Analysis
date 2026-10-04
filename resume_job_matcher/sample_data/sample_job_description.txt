@@ -1,0 +1,21 @@
+Job Title: Junior Full Stack Developer (AI/ML exposure a plus)
+
+We are looking for a Junior Full Stack Developer to join our engineering team.
+
+Requirements:
+- Strong programming skills in Python and JavaScript
+- Experience with React and Node.js for building web applications
+- Familiarity with REST API design and integration
+- Working knowledge of SQL and MongoDB databases
+- Solid understanding of Data Structures and Algorithms
+- Experience with Git for version control
+- Exposure to Machine Learning or Natural Language Processing is a plus
+- Familiarity with Docker and basic AWS cloud concepts is a plus
+- Strong communication and teamwork skills
+- Ability to work in an Agile/Scrum environment
+
+Responsibilities:
+- Build and maintain full-stack web applications
+- Collaborate with cross-functional teams using Agile methodology
+- Write clean, tested, maintainable code
+- Participate in code reviews and system design discussions
